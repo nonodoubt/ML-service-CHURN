@@ -1,0 +1,15 @@
+[run]
+source = app
+omit =
+    # Celery worker — гоняется в отдельном процессе с реальной БД
+    app/tasks/worker.py
+    # Lifespan и старт приложения — интеграционно поднимается в docker-compose
+    app/main.py
+    # Реальные Redis-операции — мокаем в тестах
+    app/core/limiter.py
+
+[report]
+exclude_lines =
+    pragma: no cover
+    raise NotImplementedError
+    if __name__ == .__main__.:
